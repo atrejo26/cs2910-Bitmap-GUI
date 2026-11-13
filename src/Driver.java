@@ -1,11 +1,8 @@
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 public class Driver {
     public static void main(String[] args) {
-        // System.out.println("MyDate Demo");
-
-        // MyDate bDay;
-        // bDay = new MyDate(3, 19, 1973);
-        // System.out.println(bDay.toString());
-
         Pixel Pixel;
         Pixel = new Pixel(25, 20, 255);
         System.out.println("Pixel Test:\n" + Pixel.toString());
@@ -95,5 +92,35 @@ public class Driver {
 
         System.out.println("All tests completed.");
 
+    
+        //  Launch the GUI 
+        SwingUtilities.invokeLater(() -> {
+            int rows = askPositiveInt("How many rows?");
+            int cols = askPositiveInt("How many columns?");
+            BitmapGUI editor = new BitmapGUI(rows, cols);
+            editor.setVisible(true);        // windows start hidden
+        });
+
+    }
+    private static int askPositiveInt(String message) {
+        int retVal = 0;
+        while (retVal <= 0) {
+            String input = JOptionPane.showInputDialog(null, message, "Icon size",
+                    JOptionPane.QUESTION_MESSAGE);
+            if (input == null) {
+                System.exit(0);             // user pressed Cancel
+            }
+            try {
+                int n = Integer.parseInt(input.trim());
+                if (n > 0) {
+                    retVal = n;
+                } else {
+                    JOptionPane.showMessageDialog(null, "The number must be greater than 0.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "That's not a whole number.");
+            }
+        }
+        return retVal;
     }
 }
