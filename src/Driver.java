@@ -95,10 +95,18 @@ public class Driver {
     
         //  Launch the GUI 
         SwingUtilities.invokeLater(() -> {
+
             int rows = askPositiveInt("How many rows?");
             int cols = askPositiveInt("How many columns?");
-            BitmapGUI editor = new BitmapGUI(rows, cols);
-            editor.setVisible(true);        // windows start hidden
+
+            // Create one shared subject
+            IconEdit sharedIconEdit = new IconEdit();
+
+            // Create the first editor
+            BitmapGUI editor =
+                new BitmapGUI(rows, cols, sharedIconEdit);
+
+            editor.setVisible(true);
         });
 
     }
